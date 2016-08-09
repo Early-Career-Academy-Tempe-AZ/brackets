@@ -96,7 +96,13 @@ define(function (require, exports, module) {
     }
 
     function nodeFileCacheComplete(event, numFiles, cacheSize) {
-        var projectName = ProjectManager.getProjectRoot().name || "noName00";
+        var projectRoot = ProjectManager.getProjectRoot(),
+            projectName = projectRoot ? projectRoot.name : null;
+
+        if (!projectName) {
+            projectName = "noName00";
+        }
+
         FindUtils.setInstantSearchDisabled(false);
         // Node search could be disabled if some error has happened in node. But upon
         // project change, if we get this message, then it means that node search is working,
